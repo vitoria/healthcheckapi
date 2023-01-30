@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .shadow-big {
+    box-shadow: rgb(0 0 0 / 50%) 0px 16px 70px;
+  }
+  .combobox-item {
+    content-visibility: auto;
+  }
+  .combobox-item[aria-selected='true'] {
+    @apply bg-black/5;
+  }
+  .combobox-item:active {
+    @apply bg-black/5;
+  }
+  .combobox [data-radix-popper-content-wrapper] {
+    will-change: auto;
+    @apply mobile-only:transform-none mobile-only:top-12 mobile-only:left-4 mobile-only:w-[calc(100vw-32px)] !important;
+  }
+  .cap:first-letter {
+    @apply capitalize;
+  }
+}
+
+input,
+textarea,
+button,
+select,
+label,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+::-moz-selection { /* Code for Firefox */
+  @apply bg-primary-200;
+}
+
+::selection {
+  @apply bg-primary-200;
+}
