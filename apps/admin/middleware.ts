@@ -7,7 +7,7 @@ async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   // Create authenticated Supabase Client.
   const supabase = createMiddlewareSupabaseClient({ req, res });
-  if (req.nextUrl.pathname.startsWith("/admin")) {
+  if (req.nextUrl.pathname.startsWith("/project")) {
     // Check if we have a session
     const {
       data: { session },

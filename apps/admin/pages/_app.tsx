@@ -12,8 +12,8 @@ import "@/styles/globals.css"
 import { Inter as FontSans } from "@next/font/google"
 import { ThemeProvider } from "next-themes"
 
-import Shell from "../components/Shell"
 import PageHeader from "../components/PageHeader"
+import Shell from "../components/Shell"
 import { NextPageWithLayout } from "../types"
 
 const fontSans = FontSans({
@@ -33,7 +33,7 @@ export default function MyApp({
 }: AppPropsWithLayout) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
   const getLayout = Component.getLayout || ((page) => page)
-  const isAdmin = router.pathname.startsWith("/admin")
+  const isAuth = router.pathname.startsWith("/project")
   const page = getLayout(<Component {...pageProps} />)
   return (
     <>
@@ -57,7 +57,7 @@ export default function MyApp({
           defaultTheme="light"
           enableSystem={false}
         >
-          {isAdmin ?<Shell>{page}</Shell> : page}
+          {isAuth ? <Shell>{page}</Shell> : page}
         </ThemeProvider>
         <Analytics />
       </SessionContextProvider>

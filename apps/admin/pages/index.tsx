@@ -11,7 +11,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   if (user.data.user) {
     return {
       redirect: {
-        destination: "/admin",
+        destination: "/projects",
         permanent: false,
       },
     }

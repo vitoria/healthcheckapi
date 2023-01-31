@@ -63,7 +63,7 @@ const Shell = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Head>
-        <title>Admin • HealthCheckAPI</title>
+        <title>Projects • HealthCheckAPI</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
