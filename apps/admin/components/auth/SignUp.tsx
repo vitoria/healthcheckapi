@@ -43,7 +43,7 @@ const SignUp = () => {
       setError(error.message)
       setLoading(false)
     } else {
-      router.push("/login?new=true")
+      router.push("/entrar?new=true")
     }
   }
 
