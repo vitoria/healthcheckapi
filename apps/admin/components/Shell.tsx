@@ -9,7 +9,7 @@ import Head from "next/head"
 import * as Toast from "@radix-ui/react-toast"
 import { Icons, cn } from "ui"
 
-import Sidebar from "./Sidebar"
+import { siteName } from "./Logo"
 
 type ToastParams = {
   title: string
@@ -63,7 +63,7 @@ const Shell = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Head>
-        <title>Projects • HealthCheckAPI</title>
+        <title>{`Projects • ${siteName}`}</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
@@ -72,13 +72,13 @@ const Shell = ({ children }: PropsWithChildren) => {
 
       <Toast.Provider swipeDirection="right">
         <Toast.Root
-          className="flex space-x-3 rounded-md border p-4 shadow-lg"
+          className="flex space-x-3 rounded-md border bg-white p-4 shadow-lg"
           open={toast.open}
           onOpenChange={(open) => setToast({ open })}
         >
           <div
             className={cn(
-              "flex h-5 w-5 items-center justify-center rounded-full text-white",
+              "flex max-h-[16px] min-h-[16px] w-5 min-w-[16px] max-w-[16px] items-center justify-center rounded-full text-white",
               {
                 "bg-green-400": toast.variant === "success",
                 "bg-red-400": toast.variant === "error",
@@ -93,17 +93,16 @@ const Shell = ({ children }: PropsWithChildren) => {
               {toast.title}
             </Toast.Title>
             {toast.description && (
-              <Toast.Description>{toast.description}</Toast.Description>
+              <Toast.Description className="text-xs text-gray-500">
+                {toast.description}
+              </Toast.Description>
             )}
           </div>
         </Toast.Root>
 
         <Toast.Viewport className="fixed bottom-0 right-0 z-50 flex w-full max-w-xs flex-col p-8" />
         <ShellContext.Provider value={{ onToast }}>
-          <div className="fixed inset-0 grid select-none grid-cols-1 overflow-hidden bg-white sm:grid-cols-[240px,1fr]">
-            <Sidebar />
-            <div className="flex flex-1 flex-col overflow-auto">{children}</div>
-          </div>
+          <div className="absolute inset-0 flex flex-col">{children}</div>
         </ShellContext.Provider>
       </Toast.Provider>
     </>

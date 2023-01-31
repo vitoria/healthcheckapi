@@ -24,6 +24,7 @@
     "date-fns": "^2.29.3",
     "deepmerge": "^4.2.2",
     "formik": "^2.2.9",
+    "isomorphic-unfetch": "^4.0.2",
     "next": "13.0.0",
     "next-themes": "^0.2.1",
     "normalizr": "^3.6.2",

@@ -9,12 +9,12 @@ import {
 import { Analytics } from "@vercel/analytics/react"
 
 import "@/styles/globals.css"
+import { NextPageWithLayout } from "@/types"
 import { Inter as FontSans } from "@next/font/google"
 import { ThemeProvider } from "next-themes"
 
-import PageHeader from "../components/PageHeader"
-import Shell from "../components/Shell"
-import { NextPageWithLayout } from "../types"
+import { logoEmoji } from "@/components/Logo"
+import Shell from "@/components/Shell"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,7 +33,8 @@ export default function MyApp({
 }: AppPropsWithLayout) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
   const getLayout = Component.getLayout || ((page) => page)
-  const isAuth = router.pathname.startsWith("/project")
+  const isAuth =
+    router.pathname.startsWith("/project") || router.pathname.startsWith("/new")
   const page = getLayout(<Component {...pageProps} />)
   return (
     <>
@@ -45,7 +46,7 @@ export default function MyApp({
       <Head>
         <link
           rel="shortcut icon"
-          href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>`}
+          href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${logoEmoji}</text></svg>`}
         />
       </Head>
       <SessionContextProvider
