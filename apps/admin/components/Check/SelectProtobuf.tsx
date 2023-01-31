@@ -13,8 +13,6 @@ import {
 } from "ui"
 import * as Yup from "yup"
 
-import Stepper from "@/components/Stepper"
-
 const validationSchema = Yup.object().shape({
   proto: Yup.string().required("obrigatório"),
 })
@@ -33,6 +31,10 @@ type ContentProp = {
   onChangeValue: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
+type SelectNewProtoProps = {
+  onSubmit: (proto: string) => void
+}
+
 const SelectExistentProto = ({ value, onChangeValue }: ContentProp) => {
   return (
     <div>
@@ -48,39 +50,65 @@ const SelectExistentProto = ({ value, onChangeValue }: ContentProp) => {
   )
 }
 
-const SelectNewProto = ({ value, onChangeValue }: ContentProp) => {
-  const [loading, setLoading] = useState<boolean>(false)
-
-  const onSubmit= async (values: Values) => {
-    setLoading(true)
-  }
-
-  const formik = useFormik({
-    initialValues: {
-      proto: "",
+const registerProto = async (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  const res = await fetch("/api/protobuf", {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
     },
-    validationSchema,
-    onSubmit,
+    body: formData,
   })
 
+  return res.json()
+}
+
+const SelectNewProto = ({ onSubmit }: SelectNewProtoProps) => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [proto, setProto] = useState<string>("")
+  const [file, setFile] = useState<File | null>(null)
+
+  const handleSubmit = async () => {
+    setLoading(true)
+
+    if (file == null) { return }
+
+    const data = await registerProto(file)
+
+    console.log(data)
+
+    onSubmit(proto)
+  }
+
   return (
-    <div>
-      <Label htmlFor="proto">Paste your .proto file content</Label>
-      <Textarea
-        id="proto"
-        name="proto"
-        onChange={formik.handleChange}
-        value={formik.values.proto}
-      ></Textarea>
-      <Button type="submit" disabled={!formik.values.proto}>Upload proto</Button>
+    <div className="space-y-4">
+      <div>
+        <Label htmlFor="proto">Paste your .proto file content</Label>
+        <Textarea
+          id="proto"
+          name="proto"
+          onChange={(e) => setProto(e.target.value)}
+          value={proto}
+        ></Textarea>
+        <Input
+          type="file"
+          onChange={(e) => setFile(e.target.files?.[0] || null)}
+        ></Input>
+      </div>
+      <Button
+        type="submit"
+        // disabled={loading || proto === "" || proto == null}
+        onClick={handleSubmit}
+      >
+        Upload proto
+      </Button>
     </div>
   )
 }
 
 const SelectProfoBuf = () => {
-  const [protoOption, setProtoOption] = useState(
-    ProtoOptions.existant.toString()
-  )
+  const [protoOption, setProtoOption] = useState(ProtoOptions.new.toString())
   const formik = useFormik({
     initialValues: {
       url: "",
@@ -93,46 +121,37 @@ const SelectProfoBuf = () => {
     },
   })
 
-  const steps = [
-    {
-      title: "Select Service",
-    },
-    {
-      title: "Configure Check",
-    },
-    {
-      title: "Review",
-    },
-  ]
-
   return (
-    <div className="p-4">
-      <Stepper currentStep={0} steps={steps} />
-      <h2 className="my-4">Choose protobuf service</h2>
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
-        <Tabs value={protoOption} onValueChange={setProtoOption}>
-          <TabsList>
-            {Object.values(ProtoOptions).map((item) => (
-              <TabsTrigger key={item} value={item}>
-                {item}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          <TabsContent value={ProtoOptions.existant.toString()}></TabsContent>
-          <TabsContent value={ProtoOptions.new.toString()}></TabsContent>
-        </Tabs>
+    <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <Tabs value={protoOption} onValueChange={setProtoOption}>
+        <TabsList>
+          {Object.values(ProtoOptions).map((item) => (
+            <TabsTrigger key={item} value={item}>
+              {item}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <TabsContent value={ProtoOptions.existant.toString()}></TabsContent>
+        <TabsContent value={ProtoOptions.new.toString()}>
+          <SelectNewProto
+            onSubmit={(proto) => {
+              console.log(proto)
+              formik.handleChange({ type: "change", target: { name: "proto" } })
+            }}
+          />
+        </TabsContent>
+      </Tabs>
 
-        <div>
-          <Label htmlFor="url">URL</Label>
-          <Input
-            id="url"
-            name="url"
-            onChange={formik.handleChange}
-            value={formik.values.url}
-          ></Input>
-        </div>
-      </form>
-    </div>
+      <div>
+        <Label htmlFor="url">URL</Label>
+        <Input
+          id="url"
+          name="url"
+          onChange={formik.handleChange}
+          value={formik.values.url}
+        ></Input>
+      </div>
+    </form>
   )
 }
 
