@@ -47,8 +47,15 @@ const ProjectSelect = () => {
   return (
     <div className="flex items-center space-x-4">
       <DropdownMenu>
-        <DropdownMenuTrigger className="text-sm hover:opacity-60">
-          {orgSelected?.name}
+        <DropdownMenuTrigger
+          className="text-sm hover:opacity-60"
+          disabled={!data}
+        >
+          {!data ? (
+            <span className="block h-4 w-16 rounded-md bg-gray-100" />
+          ) : (
+            orgSelected?.name
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64" align="start">
           <DropdownMenuRadioGroup
@@ -76,8 +83,15 @@ const ProjectSelect = () => {
       </DropdownMenu>
       <div className="h-4 w-px rotate-12 bg-gray-300" />
       <DropdownMenu>
-        <DropdownMenuTrigger className="text-sm hover:opacity-60">
-          {projectSelected?.name}
+        <DropdownMenuTrigger
+          className="text-sm hover:opacity-60"
+          disabled={!data}
+        >
+          {!data ? (
+            <span className="block h-4 w-24 rounded-md bg-gray-100" />
+          ) : (
+            projectSelected?.name
+          )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64" align="start">
           <DropdownMenuRadioGroup
