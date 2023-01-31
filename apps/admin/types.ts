@@ -21,3 +21,12 @@ export interface Projects {
   organizations: Organization[]
   projects: Project[]
 }
+
+export interface User {
+  id: string
+  created_at: string
+  updated_at: string
+  username: string
+  full_name: string
+  avatar_url?: string
+}

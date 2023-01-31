@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
 
+import { siteName } from "@/components/Logo"
 import SignIn from "@/components/auth/SignIn"
 
 const SignInPage = () => {
@@ -17,7 +18,7 @@ const SignInPage = () => {
   return (
     <>
       <Head>
-        <title>Entrar - RSVA</title>
+        <title>{`Login • ${siteName}`}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <SignIn resetSuccess={router.query.reset === "true"} />

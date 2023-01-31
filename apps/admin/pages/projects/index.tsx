@@ -17,10 +17,10 @@ import {
 
 export default function ProjectsPage() {
   const router = useRouter()
-  const { data, error, isLoading } = useSWR<Projects>("/api/projects", fetcher)
+  const { data, error } = useSWR<Projects>("/api/projects", fetcher)
 
   if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
+  if (!data) return <div>loading...</div>
 
   return (
     <div className="flex flex-1 flex-col bg-gray-100 p-4">

@@ -104,11 +104,7 @@ export default function NewOrganizationPage() {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => router.push("/projects")}
-              >
+              <Button variant="outline" type="button" onClick={router.back}>
                 Cancel
               </Button>
               <Button

@@ -22,6 +22,10 @@
   .cap:first-letter {
     @apply capitalize;
   }
+  .nav-selected::before {
+    @apply block absolute h-0 left-3 right-3 -bottom-px border-b-2 border-black;
+    content: "";
+  }
 }
 
 input,
