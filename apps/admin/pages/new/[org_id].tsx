@@ -55,7 +55,7 @@ export default function NewProjectPage() {
   return (
     <>
       <NewProjectHeader step="project" />
-      <div className="flex flex-1 flex-col items-center bg-gray-100 pt-12">
+      <div className="flex flex-1 flex-col items-center bg-gray-100 p-4 sm:pt-12">
         <div className="w-full max-w-md rounded-md border bg-white p-4 shadow-lg">
           <h3 className="font-medium">Create a new project</h3>
           <span className="text-sm text-gray-500">

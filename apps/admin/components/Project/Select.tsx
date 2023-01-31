@@ -17,7 +17,7 @@ import {
 
 const ProjectSelect = () => {
   const router = useRouter()
-  const { data, error } = useSWR<Projects>("/api/projects", fetcher)
+  const { data } = useSWR<Projects>("/api/projects", fetcher)
 
   const orgSelected = useMemo(
     () =>

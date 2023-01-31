@@ -11,12 +11,14 @@ type NewProjectHeaderProps = {
 
 const NewProjectHeader = ({ step = "organization" }: NewProjectHeaderProps) => (
   <div className="flex h-12 items-center space-x-2 border-b px-4 text-sm">
-    <Link href="/">{logoEmoji}</Link>
+    <Link href="/" className="leading-none">
+      {logoEmoji}
+    </Link>
     <Divider />
-    <span className="text-black">Create an organization</span>
+    <span className="truncate text-black">Create an organization</span>
     <Divider />
     <span
-      className={cn("text-gray-500", {
+      className={cn("truncate text-gray-500", {
         "text-black": step === "project",
       })}
     >
