@@ -7,7 +7,7 @@ import ProjectHeader from "./Header"
 
 const NAV_ITEMS: { [key: string]: string } = {
   "/project/[project_id]": "Checks",
-  "/project/[project_id]/services": "Services",
+  "/project/[project_id]/apis": "APIs",
 }
 
 const ProjectLayout = ({ children }: PropsWithChildren) => {
@@ -23,7 +23,7 @@ const ProjectLayout = ({ children }: PropsWithChildren) => {
               key={pathname}
               href={{ pathname, query: router.query }}
               className={cn(
-                "relative flex h-10 items-center justify-center px-3 text-sm text-gray-500 hover:text-black",
+                "relative flex h-10 items-center justify-center px-4 text-sm text-gray-500 hover:text-black",
                 { "text-black nav-selected": router.pathname === pathname }
               )}
             >
@@ -32,8 +32,8 @@ const ProjectLayout = ({ children }: PropsWithChildren) => {
           ))}
         </div>
       </div>
-      <div className="flex flex-1 bg-gray-100 p-4">
-        <div className="mx-auto flex w-full max-w-6xl overflow-hidden">
+      <div className="flex flex-1 bg-gray-100">
+        <div className="mx-auto flex w-full max-w-6xl flex-col overflow-hidden">
           {children}
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -19,9 +20,9 @@ const ProjectHeader = () => {
   return (
     <>
       <Head>
-        <title>{data ? `${data?.name} • ${siteName}` : siteName}</title>
+        <title>{data ? `${data?.name} • ${data?.organization?.name} • ${siteName}` : siteName}</title>
       </Head>
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between py-2 px-3">
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between py-2 px-4">
         <div className="flex items-center space-x-4">
           <Link href="/projects" className="text-2xl leading-none">
             {logoEmoji}

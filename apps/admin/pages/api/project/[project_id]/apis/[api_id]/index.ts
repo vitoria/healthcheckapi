@@ -16,17 +16,17 @@ const ProtectedRoute: NextApiHandler = async (req, res) => {
   }
 
   if (req.method == "GET") {
-    const project = await supabase
-      .from("projects")
+    const api = await supabase
+      .from("apis")
       .select("*")
-      .eq("id", req.query.id)
+      .eq("id", req.query.api_id)
       .single()
 
-    if (project.error) {
-      return res.status(project.status).json(project.error)
+    if (api.error) {
+      return res.status(api.status).json(api.error)
     }
 
-    return res.status(200).json(project.data)
+    return res.status(200).json(api.data)
   } else {
     res.status(405).json({ error: "Method not allowed" })
   }

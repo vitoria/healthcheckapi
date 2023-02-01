@@ -59,7 +59,7 @@ export default function NewProjectPage() {
         <div className="w-full max-w-md rounded-md border bg-white p-4 shadow-lg">
           <h3 className="font-medium">Create a new project</h3>
           <span className="text-sm text-gray-500">
-            Within an project you can create your services and checks.
+            Within an project you can create your checks.
           </span>
           <form onSubmit={formik.handleSubmit}>
             <div className="grid gap-4 py-8">

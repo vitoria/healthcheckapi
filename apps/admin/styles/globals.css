@@ -23,7 +23,7 @@
     @apply capitalize;
   }
   .nav-selected::before {
-    @apply block absolute h-0 left-3 right-3 -bottom-px border-b-2 border-black;
+    @apply block absolute h-0 left-4 right-4 -bottom-px border-b-2 border-black;
     content: "";
   }
 }
@@ -38,9 +38,9 @@ a {
 }
 
 ::-moz-selection { /* Code for Firefox */
-  @apply bg-primary-200;
+  @apply bg-indigo-200;
 }
 
 ::selection {
-  @apply bg-primary-200;
+  @apply bg-indigo-200;
 }

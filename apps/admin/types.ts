@@ -30,3 +30,10 @@ export interface User {
   full_name: string
   avatar_url?: string
 }
+
+export interface Api {
+  id: string
+  org_id: string
+  name: string
+  url: string
+}
