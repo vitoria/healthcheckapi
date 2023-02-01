@@ -5,6 +5,7 @@ import { fetcher } from "@/utilts/fetcher"
 import useSWR from "swr"
 import { Button } from "ui"
 
+import PageInfo from "@/components/PageInfo"
 import ProjectLayout from "@/components/Project"
 
 const ApisPage: NextPageWithLayout = () => {
@@ -15,14 +16,43 @@ const ApisPage: NextPageWithLayout = () => {
     fetcher
   )
 
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  const render = () => {
+    if (error) return <PageInfo className="mx-4">Failed to load</PageInfo>
+    if (!data) return <PageInfo className="mx-4">Loading...</PageInfo>
+    if (data.length === 0)
+      return <PageInfo className="mx-4">No API yet, create one now.</PageInfo>
+
+    return (
+      <div className="mx-4 flex flex-col divide-y overflow-hidden rounded-md border bg-white">
+        {data.map((item) => (
+          <Link
+            key={item.id}
+            className="flex items-center justify-between p-4 hover:bg-gray-50"
+            href={{
+              pathname: "/project/[project_id]/api/[api_id]",
+              query: { ...router.query, api_id: item.id },
+            }}
+          >
+            <div className="flex items-center space-x-4">
+              <span className="font-medium">{item.name}</span>
+              <span className="text-sm text-gray-500">{item.url}</span>
+            </div>
+            <span className="text-sm text-gray-500">
+              {item.files?.length}{" "}
+              {(item.files?.length ?? 0) < 2 ? "file" : "files"}
+            </span>
+          </Link>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <>
       <div className="flex items-center justify-between p-4">
         <h1 className="text-xl font-medium">APIs</h1>
         <Button
+          disabled={!data}
           onClick={() =>
             router.push({
               pathname: "/project/[project_id]/api/new",
@@ -33,21 +63,7 @@ const ApisPage: NextPageWithLayout = () => {
           New
         </Button>
       </div>
-      <div className="flex flex-col space-y-4">
-        {data.map((item) => (
-          <Link
-            href={{
-              pathname: "/project/[project_id]/api/[api_id]",
-              query: {
-                ...router.query,
-                api_id: item.id,
-              },
-            }}
-          >
-            {item.name}
-          </Link>
-        ))}
-      </div>
+      {render()}
     </>
   )
 }

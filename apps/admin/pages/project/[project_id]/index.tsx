@@ -13,7 +13,7 @@ const ChecksPage: NextPageWithLayout = () => {
         <Button
           onClick={() =>
             router.push({
-              pathname: "/project/[project_id]/checks/new",
+              pathname: "/project/[project_id]/new",
               query: router.query,
             })
           }

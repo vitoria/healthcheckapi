@@ -82,7 +82,7 @@ const ProtectedRoute: NextApiHandler = async (req, res) => {
 
     const apis = await supabase
       .from("apis")
-      .select("*")
+      .select("*, files(*)")
       .eq("org_id", project.data.org_id)
 
     if (apis.error) {

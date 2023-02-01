@@ -23,7 +23,7 @@ export default function ProjectsPage() {
   if (!data) return <div>loading...</div>
 
   return (
-    <div className="flex flex-1 flex-col bg-gray-100 p-4">
+    <div className="flex flex-1 flex-col bg-gray-50 p-4">
       <div className="mb-10">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

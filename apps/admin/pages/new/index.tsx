@@ -84,7 +84,7 @@ export default function NewOrganizationPage() {
   return (
     <>
       <NewProjectHeader />
-      <div className="flex flex-1 flex-col items-center bg-gray-100 p-4 sm:pt-12">
+      <div className="flex flex-1 flex-col items-center bg-gray-50 p-4 sm:pt-12">
         <div className="w-full max-w-md rounded-md border bg-white p-4 shadow-lg">
           <h3 className="font-medium">Create a new organization</h3>
           <span className="text-sm text-gray-500">{`This is your organization within ${siteName}.`}</span>

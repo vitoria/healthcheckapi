@@ -21,7 +21,10 @@ const ProjectLayout = ({ children }: PropsWithChildren) => {
           {Object.keys(NAV_ITEMS).map((pathname) => (
             <Link
               key={pathname}
-              href={{ pathname, query: router.query }}
+              href={{
+                pathname,
+                query: { project_id: router.query.project_id },
+              }}
               className={cn(
                 "relative flex h-10 items-center justify-center px-4 text-sm text-gray-500 hover:text-black",
                 { "text-black nav-selected": router.pathname === pathname }
@@ -32,7 +35,7 @@ const ProjectLayout = ({ children }: PropsWithChildren) => {
           ))}
         </div>
       </div>
-      <div className="flex flex-1 bg-gray-100">
+      <div className="flex flex-1">
         <div className="mx-auto flex w-full max-w-6xl flex-col overflow-hidden">
           {children}
         </div>

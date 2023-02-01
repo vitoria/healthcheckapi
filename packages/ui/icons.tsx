@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Clock,
   Contact,
+  FileCode,
   Home,
   Layout,
   LayoutList,
@@ -27,6 +28,7 @@ import {
 export type Icon = LucideIcon
 
 export const Icons = {
+  proto: FileCode,
   add: Plus,
   analytics: BarChart2,
   arrow: { left: ArrowLeft, right: ArrowRight },

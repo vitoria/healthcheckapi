@@ -11,21 +11,9 @@ import { useShell } from "@/components/Shell"
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("obrigatório"),
-  url: Yup.string().required("obrigatório"),
 })
 
-function validator(file: File) {
-  if (!file.name.endsWith(".proto")) {
-    return {
-      code: "type-wrong",
-      message: `File should be a proto type`,
-    }
-  }
-
-  return null
-}
-
-const NewApiPage: NextPageWithLayout = () => {
+const NewCheckPage: NextPageWithLayout = () => {
   const { onToast } = useShell()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -69,21 +57,10 @@ const NewApiPage: NextPageWithLayout = () => {
     onSubmit,
   })
 
-  const {
-    getRootProps,
-    getInputProps,
-    isFocused,
-    isDragAccept,
-    acceptedFiles,
-  } = useDropzone({
-    onDrop: (acceptedFiles) => formik.setFieldValue("protos", acceptedFiles),
-    validator,
-  })
-
   return (
     <div className="flex flex-1 flex-col items-center bg-gray-50 p-4 sm:pt-12">
       <div className="w-full max-w-4xl rounded-md border bg-white p-4 shadow-lg">
-        <h3 className="font-medium">Create a new API</h3>
+        <h3 className="font-medium">Create a new check</h3>
         <span className="text-sm text-gray-500">
           Some description about that
         </span>
@@ -112,35 +89,6 @@ const NewApiPage: NextPageWithLayout = () => {
                 className="col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 gap-4">
-              <Label htmlFor="protos">Files</Label>
-              <div className="col-span-3 flex flex-col space-y-4">
-                <div
-                  className={cn(
-                    "flex min-h-[96px] select-none items-center justify-center rounded-md border border-slate-300 p-4 focus:outline-none",
-                    {
-                      "ring-2 ring-slate-400 ring-offset-2":
-                        isFocused || isDragAccept,
-                    }
-                  )}
-                  {...getRootProps()}
-                >
-                  <input id="protos" {...getInputProps()} />
-                  <p className="text-sm text-gray-500">
-                    Drop the proto files here, or click to choose files
-                  </p>
-                </div>
-                <aside>
-                  <ul>
-                    {acceptedFiles.map((file) => (
-                      <li key={file.name} className="text-sm text-gray-500">
-                        {file.name}
-                      </li>
-                    ))}
-                  </ul>
-                </aside>
-              </div>
-            </div>
           </div>
           <div className="flex items-center justify-between">
             <Button variant="outline" type="button" onClick={router.back}>
@@ -164,8 +112,8 @@ const NewApiPage: NextPageWithLayout = () => {
   )
 }
 
-NewApiPage.getLayout = function getLayout(page) {
+NewCheckPage.getLayout = function getLayout(page) {
   return <ProjectLayout>{page}</ProjectLayout>
 }
 
-export default NewApiPage
+export default NewCheckPage

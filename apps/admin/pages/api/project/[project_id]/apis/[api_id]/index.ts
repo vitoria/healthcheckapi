@@ -26,7 +26,20 @@ const ProtectedRoute: NextApiHandler = async (req, res) => {
       return res.status(api.status).json(api.error)
     }
 
-    return res.status(200).json(api.data)
+    const files = await supabase
+      .from("files")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .eq("api_id", req.query.api_id)
+
+    if (files.error) {
+      return res.status(files.status).json(files.error)
+    }
+
+    return res.status(200).json({
+      ...api.data,
+      files: files.data,
+    })
   } else {
     res.status(405).json({ error: "Method not allowed" })
   }

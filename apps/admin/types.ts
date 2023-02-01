@@ -31,9 +31,17 @@ export interface User {
   avatar_url?: string
 }
 
+export interface ApiFile {
+  id: string
+  created_at: string
+  api_id: string
+  url: string
+}
+
 export interface Api {
   id: string
   org_id: string
   name: string
   url: string
+  files?: ApiFile[]
 }
