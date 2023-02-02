@@ -100,7 +100,7 @@ const Shell = ({ children }: PropsWithChildren) => {
           </div>
         </Toast.Root>
 
-        <Toast.Viewport className="fixed bottom-0 right-0 z-50 flex w-full max-w-xs flex-col p-8" />
+        <Toast.Viewport className="fixed bottom-0 right-0 z-[500] flex w-full max-w-xs flex-col p-8" />
         <ShellContext.Provider value={{ onToast }}>
           <div className="absolute inset-0 flex flex-col">{children}</div>
         </ShellContext.Provider>

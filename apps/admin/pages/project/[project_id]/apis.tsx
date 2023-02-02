@@ -3,10 +3,10 @@ import { useRouter } from "next/router"
 import { Api, NextPageWithLayout } from "@/types"
 import { fetcher } from "@/utilts/fetcher"
 import useSWR from "swr"
-import { Button } from "ui"
 
 import PageInfo from "@/components/PageInfo"
 import ProjectLayout from "@/components/Project"
+import NewApi from "../../../components/Api/New"
 
 const ApisPage: NextPageWithLayout = () => {
   const router = useRouter()
@@ -20,7 +20,9 @@ const ApisPage: NextPageWithLayout = () => {
     if (error) return <PageInfo className="mx-4">Failed to load</PageInfo>
     if (!data) return <PageInfo className="mx-4">Loading...</PageInfo>
     if (data.length === 0)
-      return <PageInfo className="mx-4">No API yet, create one now.</PageInfo>
+      return (
+        <PageInfo className="mx-4">{`No API yet, click in "New" to create.`}</PageInfo>
+      )
 
     return (
       <div className="mx-4 flex flex-col divide-y overflow-hidden rounded-md border bg-white">
@@ -51,17 +53,7 @@ const ApisPage: NextPageWithLayout = () => {
     <>
       <div className="flex items-center justify-between p-4">
         <h1 className="text-xl font-medium">APIs</h1>
-        <Button
-          disabled={!data}
-          onClick={() =>
-            router.push({
-              pathname: "/project/[project_id]/api/new",
-              query: router.query,
-            })
-          }
-        >
-          New
-        </Button>
+        <NewApi disabled={!data} />
       </div>
       {render()}
     </>
