@@ -4,7 +4,7 @@ import { Check, NextPageWithLayout } from "@/types"
 import { fetcher } from "@/utilts/fetcher"
 import useSWR from "swr"
 
-import NewApi from "@/components/Api/New"
+import NewCheck from "@/components/Check/New"
 import PageInfo from "@/components/PageInfo"
 import ProjectLayout from "@/components/Project"
 
@@ -50,7 +50,7 @@ const ChecksPage: NextPageWithLayout = () => {
     <>
       <div className="flex items-center justify-between p-4">
         <h1 className="text-xl font-medium">Checks</h1>
-        <NewApi disabled={!data} />
+        <NewCheck disabled={!data} />
       </div>
       {render()}
     </>

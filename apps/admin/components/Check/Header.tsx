@@ -1,15 +1,17 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
+import { ApiDetails } from "@/types"
+import { fetcher } from "@/utilts/fetcher"
 import { Text, Title } from "@tremor/react"
 import { useFormik } from "formik"
+import useSWR from "swr"
 import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -32,8 +34,16 @@ const validationSchema = Yup.object().shape({
 })
 
 export const CheckHeader = () => {
-  const { data, details, onUpdate, updating } = useCheck()
+  const {
+    query: { project_id },
+  } = useRouter()
+  const { data, onUpdate, updating } = useCheck()
   const [editing, setEditing] = useState(false)
+
+  const details = useSWR<ApiDetails>(
+    editing ? `/api/project/${project_id}/apis/${data?.api_id}/details` : null,
+    fetcher
+  )
 
   const onSubmit = ({ assertion, request, ...values }: any) =>
     onUpdate(

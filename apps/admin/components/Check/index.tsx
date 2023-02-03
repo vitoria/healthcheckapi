@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react"
 import { useRouter } from "next/router"
-import { ApiDetails, Check, CheckResultResponse } from "@/types"
+import { Check, CheckResultResponse } from "@/types"
 import { fetcher } from "@/utilts/fetcher"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { Block, Tab, TabList } from "@tremor/react"
@@ -14,7 +14,6 @@ import CheckTable from "./Table"
 type Response = SWRResponse<Check> & {
   onUpdate: (values: Partial<Check>, cb?: () => void) => void
   results: SWRResponse<CheckResultResponse>
-  details: SWRResponse<ApiDetails>
   updating: boolean
 }
 
@@ -32,12 +31,6 @@ export const CheckProvider = () => {
 
   const swr = useSWR<Check>(
     isReady ? `/api/project/${project_id}/checks/${check_id}` : null,
-    fetcher
-  )
-  const details = useSWR<ApiDetails>(
-    isReady && swr.data
-      ? `/api/project/${project_id}/apis/${swr.data.api_id}/details`
-      : null,
     fetcher
   )
 
@@ -73,7 +66,6 @@ export const CheckProvider = () => {
     onUpdate,
     updating,
     results,
-    details,
   }
 
   return (
