@@ -15,19 +15,10 @@ const ProtectedRoute: NextApiHandler = async (req, res) => {
   }
 
   if (req.method == "GET") {
-    const project = await supabase
-      .from("projects")
-      .select("org_id")
-      .eq("id", req.query.project_id)
-      .single()
-
-    if (project.error) {
-      return res.status(project.status).json(project.error)
-    }
-
     const checks = await supabase
-      .from("apis")
-      .select("*, checks(*)")
+      .from("checks")
+      .select("*, api:apis(*)")
+      .eq('apis.project_id', req.query.project_id)
       .order("created_at", { ascending: false })
 
     if (checks.error) {

@@ -15,19 +15,9 @@ const ProtectedRoute: NextApiHandler = async (req, res) => {
   }
 
   if (req.method == "POST") {
-    const project = await supabase
-      .from("projects")
-      .select("org_id")
-      .eq("id", req.query.project_id)
-      .single()
-
-    if (project.error) {
-      return res.status(project.status).json(project.error)
-    }
-
     const api = await supabase
       .from("apis")
-      .insert([{ ...req.body, org_id: project.data.org_id }])
+      .insert([{ ...req.body, project_id: req.query.project_id }])
       .select("*")
       .single()
 
@@ -37,20 +27,10 @@ const ProtectedRoute: NextApiHandler = async (req, res) => {
 
     return res.status(200).json(api.data)
   } else if (req.method == "GET") {
-    const project = await supabase
-      .from("projects")
-      .select("org_id")
-      .eq("id", req.query.project_id)
-      .single()
-
-    if (project.error) {
-      return res.status(project.status).json(project.error)
-    }
-
     const apis = await supabase
       .from("apis")
       .select("*, files(*)")
-      .eq("org_id", project.data.org_id)
+      .eq("project_id", req.query.project_id)
       .order("created_at", { ascending: false })
 
     if (apis.error) {

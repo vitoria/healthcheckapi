@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { Api, NextPageWithLayout } from "@/types"
+import { Check, NextPageWithLayout } from "@/types"
 import { fetcher } from "@/utilts/fetcher"
 import useSWR from "swr"
 
@@ -11,7 +11,7 @@ import ProjectLayout from "@/components/Project"
 const ChecksPage: NextPageWithLayout = () => {
   const router = useRouter()
 
-  const { data, error } = useSWR<Api[]>(
+  const { data, error } = useSWR<Check[]>(
     router.isReady ? `/api/project/${router.query.project_id}/checks` : null,
     fetcher
   )
@@ -31,18 +31,15 @@ const ChecksPage: NextPageWithLayout = () => {
             key={item.id}
             className="flex items-center justify-between p-4 hover:bg-gray-50"
             href={{
-              pathname: "/project/[project_id]/api/[api_id]",
-              query: { ...router.query, api_id: item.id },
+              pathname: "/project/[project_id]/check/[check_id]",
+              query: { ...router.query, check_id: item.id },
             }}
           >
             <div className="flex items-center space-x-4">
               <span className="font-medium">{item.name}</span>
-              <span className="text-sm text-gray-500">{item.url}</span>
+              <span className="text-sm text-gray-500">{`${item.service}/${item.method}`}</span>
             </div>
-            <span className="text-sm text-gray-500">
-              {item.files?.length}{" "}
-              {(item.files?.length ?? 0) < 2 ? "file" : "files"}
-            </span>
+            <span className="text-sm text-gray-500">{`It will run every ${item.interval}min`}</span>
           </Link>
         ))}
       </div>
