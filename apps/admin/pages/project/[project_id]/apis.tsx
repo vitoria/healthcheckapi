@@ -4,9 +4,9 @@ import { Api, NextPageWithLayout } from "@/types"
 import { fetcher } from "@/utilts/fetcher"
 import useSWR from "swr"
 
+import NewApi from "@/components/Api/New"
 import PageInfo from "@/components/PageInfo"
 import ProjectLayout from "@/components/Project"
-import NewApi from "../../../components/Api/New"
 
 const ApisPage: NextPageWithLayout = () => {
   const router = useRouter()

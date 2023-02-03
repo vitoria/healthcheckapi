@@ -3,7 +3,7 @@ import { useFormik } from "formik"
 import { Button, Input } from "ui"
 import * as Yup from "yup"
 
-import { useApi } from "./Provider"
+import { useApi } from "."
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("obrigatório"),

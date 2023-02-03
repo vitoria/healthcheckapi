@@ -1,6 +1,6 @@
 import { NextPageWithLayout } from "@/types"
 
-import { ApiProvider } from "@/components/Api/Provider"
+import { ApiProvider } from "@/components/Api"
 import ProjectLayout from "@/components/Project"
 
 const ApiDetailsPage: NextPageWithLayout = () => {

@@ -9,6 +9,7 @@ import {
 import { Analytics } from "@vercel/analytics/react"
 
 import "@/styles/globals.css"
+import "@tremor/react/dist/esm/tremor.css"
 import { NextPageWithLayout } from "@/types"
 import { Inter as FontSans } from "@next/font/google"
 import { ThemeProvider } from "next-themes"

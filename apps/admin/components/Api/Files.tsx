@@ -16,7 +16,7 @@ import {
 } from "ui"
 
 import PageInfo from "@/components/PageInfo"
-import { useApi } from "./Provider"
+import { useApi } from "."
 
 const ApiFiles = () => {
   const {

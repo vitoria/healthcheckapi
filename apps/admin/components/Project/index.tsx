@@ -36,7 +36,7 @@ const ProjectLayout = ({ children }: PropsWithChildren) => {
         </div>
       </div>
       <div className="flex flex-1">
-        <div className="mx-auto flex w-full max-w-6xl flex-col overflow-hidden">
+        <div className="mx-auto flex w-full max-w-6xl flex-col">
           {children}
         </div>
       </div>
